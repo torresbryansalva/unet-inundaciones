@@ -1,0 +1,14 @@
+torch>=2.1
+numpy
+pandas
+matplotlib
+tqdm
+pyyaml
+rasterio
+scikit-image
+# Solo para Lima (leer el geodatabase de EMSN038)
+geopandas
+pyogrio
+shapely
+# Solo para exportar el Sentinel-1 de Lima (scripts/gee_export_lima.py)
+earthengine-api

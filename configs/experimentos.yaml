@@ -1,0 +1,22 @@
+# Experimentos del estudio. Cada entrada = argumentos de src.train.run_experiment.
+# Valores por defecto: epochs 40, lr 1e-3, batch_size 8, crop 256, attention false,
+#                      train_splits [train], weak_per_epoch 0, seed 42.
+
+ablacion:
+  E1_bce:          {loss: bce}                                                       # línea base
+  E2_dice:         {loss: dice}                                                      # (b) loss
+  E3_bce_dice:     {loss: bce_dice}                                                  # (b) loss → ganadora
+  E4_mix:          {loss: bce_dice, weak_per_epoch: 500}                             # (a) dorados + 500 débiles por época
+  E5a_pre_debiles: {loss: bce_dice, epochs: 20, train_splits: [], weak_per_epoch: 1000}   # (a) solo débiles
+  E5_pre_ajuste:   {loss: bce_dice, lr: 0.0003, init_from: E5a_pre_debiles}         # (a) preentrenar → ajustar
+
+# Receta de partida para el paso "final" (la ganadora de la ablación)
+base: E3_bce_dice
+
+# Un cambio (attention, más épocas) se queda solo si mejora el IoU de valid en más de esto
+# (la variación entre corridas es ≈ 0.01)
+regla_mejora: 0.02
+epocas_largas: 100
+
+# Semillas para medir la variación entre corridas (42 = corrida principal)
+semillas: [42, 1, 2]

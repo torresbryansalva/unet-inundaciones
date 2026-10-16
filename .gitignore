@@ -1,0 +1,16 @@
+# Datos y modelos (se descargan o se generan)
+data/
+outputs/
+*.pt
+*.zip
+*.tif
+
+# Credenciales
+kaggle.json
+*.json.key
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
